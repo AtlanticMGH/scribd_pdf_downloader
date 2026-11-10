@@ -40,7 +40,6 @@ def wait_for_render(page: Page, n: int, timeout: int = 6000) -> None:
     page.wait_for_timeout(300)
 
 
-# NEU: komplette Funktion
 def hide_overlays(page: Page) -> None:
     """Hide sticky/fixed elements (header, toolbar, banners) that would end up in the screenshot."""
     page.evaluate(
@@ -68,7 +67,7 @@ def download_pages(url: str) -> int:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
-            viewport={"width": 1600, "height": 2000},  # GEÄNDERT: Höhe 1000 -> 2000
+            viewport={"width": 1600, "height": 2000},
             user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
                        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
         )
@@ -92,8 +91,8 @@ def download_pages(url: str) -> int:
             outer.scroll_into_view_if_needed()
             wait_for_render(page, n)
 
-            hide_overlays(page)            # NEU
-            page.wait_for_timeout(100)     # NEU
+            hide_overlays(page)
+            page.wait_for_timeout(100)
 
             try:
                 outer.screenshot(
@@ -113,7 +112,6 @@ def download_pages(url: str) -> int:
     return saved
 
 
-# NEU: Alias, damit main.py mit download_slides weiter funktioniert
 download_slides = download_pages
 
 
